@@ -8,8 +8,6 @@ A full-stack File Management System application created to facilitate file manag
 
 **Front-End:**
 - Vue.js
-- Vue-Router
-- Pinia
 - Axios
 - Bootstrap
 
@@ -23,7 +21,6 @@ A full-stack File Management System application created to facilitate file manag
 
 ## Features
 - **File Upload**: Allows users to upload files to the server.
-- **File Download**: Users can download files from the server.
 - **File Renaming**: Users can rename files on the server.
 - **File Deletion**: Allows users to delete files.
 - **CRUD Operations**: Create, read, update, and delete files seamlessly.

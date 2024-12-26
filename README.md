@@ -2,8 +2,6 @@
 
 A full-stack File Management System application created to facilitate file management tasks such as uploading, downloading, renaming, and deletion. This application supports CRUD (Create, Read, Update, Delete) operations, powered by a robust backend and a user-friendly frontend.
 
-**Date Submitted:** 15th October 2024
-
 ## Technologies Used
 
 **Front-End:**

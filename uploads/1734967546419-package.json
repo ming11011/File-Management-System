@@ -1,0 +1,33 @@
+{
+  "name": "@rollup/rollup-win32-x64-msvc",
+  "version": "4.28.1",
+  "os": [
+    "win32"
+  ],
+  "cpu": [
+    "x64"
+  ],
+  "files": [
+    "rollup.win32-x64-msvc.node"
+  ],
+  "description": "Native bindings for Rollup",
+  "author": "Lukas Taegert-Atkinson",
+  "homepage": "https://rollupjs.org/",
+  "license": "MIT",
+  "repository": "rollup/rollup",
+  "main": "./rollup.win32-x64-msvc.node"
+}   }
+    ],
+    "main": "",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/DefinitelyTyped/DefinitelyTyped.git",
+        "directory": "types/estree"
+    },
+    "scripts": {},
+    "dependencies": {},
+    "typesPublisherContentHash": "0310b41994a6f8d7530af6c53d47d8b227f32925e43718507fdb1178e05006b1",
+    "typeScriptVersion": "4.8",
+    "nonNpm": true
+}

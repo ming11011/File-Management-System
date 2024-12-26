@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>File Management</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+  <link rel="stylesheet" href="file_style.css">
+</head>
+<body>
+
+
+
+<div id="app">
+                
+  <div class="container-fluid">
+    <div class="row align-items-center g-3">
+        <h1 class="col text-md-start text-center">File Management</h1>
+        <input type="text" placeholder="Search for documents..."  v-model="searchQuery"  @input="filterFiles" class="search-bar col-4"/>
+        <!-- File Upload 文件上传 -->
+        <input type="file" @change="handleFileUpload"  id="fileUpload" multiple>
+        <label for="fileUpload" class="upload-button col-2" sty><svg width="24" height="24"><path d="M20 13h-7v7h-2v-7H4v-2h7V4h2v7h7v2z" fill="rgb(79, 83, 99)"></path></svg>
+          New
+        </label>
+        <input type="file" webkitdirectory @change="handleFolderUpload" id="folderUpload">
+        <label for="folderUpload" class="upload-folder">📂 Upload Folder</label>
+      </div>
+
+        
+    <h3>Folders</h3>
+    <ul class="folder-list d-flex flex-wrap">
+      <li v-for="folder in folderList" :key="folder.id" class="folder-item">
+        <a :href="`folder-view.html?id=${folder.id}`">📂 {{ folder.name }}</a>
+      </li>
+    </ul>
+
+
+    <div class="row align-items-center mb-3">
+      <h3 class="col-6 mb-0">Documents</h3>
+      
+      <!-- List & Grid layout btn -->
+      <div class="col-6 d-flex justify-content-end gap-2">
+        <button class="layout-btn" @click="toggleLayout('list')"><svg width="14" height="12" viewBox="0 0 14 12" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M1 0C0.447715 0 0 0.447715 0 1C0 1.55228 0.447715 2 1 2H13C13.5523 2 14 1.55228 14 1C14 0.447715 13.5523 0 13 0H1ZM0 6C0 5.44772 0.447715 5 1 5H13C13.5523 5 14 5.44772 14 6C14 6.55228 13.5523 7 13 7H1C0.447715 7 0 6.55228 0 6ZM1 10C0.447715 10 0 10.4477 0 11C0 11.5523 0.447715 12 1 12H13C13.5523 12 14 11.5523 14 11C14 10.4477 13.5523 10 13 10H1Z" fill="currentColor"></path></svg></button>
+        <button class="layout-btn" @click="toggleLayout('grid')"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0 1C0 0.447715 0.447715 0 1 0H5C5.55228 0 6 0.447715 6 1V5C6 5.55228 5.55228 6 5 6H1C0.447715 6 0 5.55228 0 5V1ZM2 2H4V4H2V2ZM0 9C0 8.44772 0.447715 8 1 8H5C5.55228 8 6 8.44772 6 9V13C6 13.5523 5.55228 14 5 14H1C0.447715 14 0 13.5523 0 13V9ZM2 10H4V12H2V10ZM9 0C8.44772 0 8 0.447715 8 1V5C8 5.55228 8.44772 6 9 6H13C13.5523 6 14 5.55228 14 5V1C14 0.447715 13.5523 0 13 0H9ZM12 2H10V4H12V2ZM8 9C8 8.44772 8.44772 8 9 8H13C13.5523 8 14 8.44772 14 9V13C14 13.5523 13.5523 14 13 14H9C8.44772 14 8 13.5523 8 13V9ZM10 10H12V12H10V10Z" fill="currentColor"></path></svg></button>
+      </div>
+    </div>
+
+    <div class="file-list-header" v-if="layout === 'list'">
+      <div>Name</div>
+      <div>Last modified</div>
+    </div>
+
+    <div :class="layoutClass">
+      <div v-for="file in filteredFiles" :key="file.name" 
+        class="file-item" :class="{ selected: file.selected }" 
+        @click="handleItemClick(file)">
+        <input type="checkbox" v-model="file.selected" @click.stop>
+            
+        <div v-if="layout === 'grid'" class="file-preview">
+            <img v-if="isImage(file)" :src="file.url" alt="File Preview" class="file-thumbnail" />
+            <div v-else-if="file.type.startsWith('video/')" class="file-thumbnail">
+              <svg style="width:50px;height:50px;fill: rgb(216, 10, 10);" viewBox="0 0 16 12" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.8 0l1.6 3.2H12L10.4 0H8.8l1.6 3.2H8L6.4 0H4.8l1.6 3.2H4L2.4 0h-.8C.72 0 .008.72.008 1.6L0 11.2c0 .88.72 1.6 1.6 1.6h12.8c.88 0 1.6-.72 1.6-1.6V0h-3.2z"></path>
+              </svg>
+            </div>
+            <div v-else-if="file.type.startsWith('audio/')" class="file-thumbnail">
+              <svg style="width:45px;height:50px;fill: rgb(231, 13, 13);" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" class="k2eJge" style="width: 16px; height: 16px;">
+                <path d="M14.222 0H1.778C.8 0 0 .8 0 1.778v12.444C0 15.2.8 16 1.778 16h12.444C15.2 16 16 15.2 16 14.222V1.778C16 .8 15.2 0 14.222 0zM3.733 13.333a1.07 1.07 0 0 1-1.066-1.066V8A5.338 5.338 0 0 1 8 2.667 5.338 5.338 0 0 1 13.333 8v4.267a1.07 1.07 0 0 1-1.066 1.066h-2.49V9.778h1.779V8A3.555 3.555 0 0 0 8 4.444 3.555 3.555 0 0 0 4.444 8v1.778h1.778v3.555H3.733z"></path>
+              </svg>
+            </div>
+            <div v-else class="file-icon">📄</div>
+        </div>
+            
+        <div>{{ file.name }}</div>
+        <div v-if="layout === 'list'">{{ file.lastModified }}</div>
+      </div> 
+    </div>
+
+    <!-- Modal for displaying file content -->
+    <div v-if="showModal" class="modal-overlay">
+      <div class="modal-content">
+        <span class="close-btn" @click="closeModal">&times;</span>
+        <!-- Show content depending on the file type -->
+        <div v-if="selectedFile.type.startsWith('image/')">
+          <img :src="selectedFile.url" class="file-content" alt="Image Preview">
+        </div>
+        <div v-else-if="selectedFile.type.startsWith('video/')">
+          <video :src="selectedFile.url" controls class="file-content" ></video>
+        </div>
+        <div v-else-if="selectedFile.type.startsWith('audio/')">
+          <audio :src="selectedFile.url" controls class="file-content"></audio>
+        </div>
+        <div v-else-if="selectedFile.type === 'application/pdf'">
+          <iframe :src="selectedFile.url" class="file-content" frameborder="0"></iframe>
+        </div>
+        <div v-else>
+          <p>File types that do not support preview: {{ selectedFile.name }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Rename Modal Box 重命名模态框 -->
+        <div v-if="showRenameModalFlag" class="rename-modal" @click.self="closeRenameModal">
+            <div class="rename-content"> 
+                <span class="close-btn" @click="closeRenameModal">&times;</span>
+                <!-- Rename a file 重命名文件 -->
+                <h3 class="col-12">Rename</h3>
+                <input class="col-12 r-input" type="text" v-model="newFileName" :placeholder="selectedFile.name" />
+                <div class="col-12 text-end"> <!-- 使用 text-end 让内容靠右对齐 -->
+                  <button class="r-btn" @click="renameFile">OK</button>
+                </div>            
+            </div>
+        </div>
+      </div>
+    </div>
+    
+  </div>     
+              
+  <!-- Fixed bottom rectangle 固定底部长方形 -->
+  <div v-if="anySelected" class="footer-fixed-box">
+    <button v-if="selectedFileCount === 1" class="btn1">Share</button>
+    <button v-if="selectedFileCount === 1" @click="showRenameModal" class="btn_rename">Rename</button>
+    <button v-if="selectedFileCount >= 1" @click="removeSelectedFiles" class="btn_delete">Delete</button>
+  </div>      
+   
+  <button id="btnToTop" class="btn-to-top" onclick="scrollToTop()">𖤂</button>
+  
+</div>    
+
+  <script src="system.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+</body>
+</html>

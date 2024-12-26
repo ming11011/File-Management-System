@@ -1,0 +1,49 @@
+{
+  "hash": "cae69ea8",
+  "configHash": "e3013a77",
+  "lockfileHash": "a7735192",
+  "browserHash": "ca3c94c6",
+  "optimized": {
+    "axios": {
+      "src": "../../axios/index.js",
+      "file": "axios.js",
+      "fileHash": "1039ee0e",
+      "needsInterop": false
+    },
+    "bootstrap": {
+      "src": "../../bootstrap/dist/js/bootstrap.esm.js",
+      "file": "bootstrap.js",
+      "fileHash": "c838062c",
+      "needsInterop": false
+    },
+    "pinia": {
+      "src": "../../pinia/dist/pinia.mjs",
+      "file": "pinia.js",
+      "fileHash": "4244110c",
+      "needsInterop": false
+    },
+    "vue": {
+      "src": "../../vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "504121de",
+      "needsInterop": false
+    },
+    "vue-router": {
+      "src": "../../vue-router/dist/vue-router.mjs",
+      "file": "vue-router.js",
+      "fileHash": "2d9a88f9",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-YFT6OQ5R": {
+      "file": "chunk-YFT6OQ5R.js"
+    },
+    "chunk-U3LI7FBV": {
+      "file": "chunk-U3LI7FBV.js"
+    },
+    "chunk-PZ5AY32C": {
+      "file": "chunk-PZ5AY32C.js"
+    }
+  }
+}

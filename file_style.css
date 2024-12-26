@@ -1,0 +1,467 @@
+body{
+  background-color: #f2f6f8 !important;
+  margin-bottom: 100px;
+}
+#app {
+  margin: 30px 20px;
+}
+
+
+/* header  container  */
+h1,h3{
+  font-family: "Georgia";
+  font-weight: 800;
+}
+
+.align-items-center{
+  margin-top: 40px;
+  margin-bottom: 50px;
+}
+
+.search-bar {
+  padding: 10px;
+  margin-left: 80px;  
+  margin-right: 150px;  
+  border: none;
+  border-radius: 0.8em;
+  outline: none;  
+  background-color: #f6f9fa;
+  box-shadow: inset .15rem .15rem .2rem var(--greyLight-2), inset -.15rem -.15rem .2rem #fff;
+}
+:root {
+  --greyLight-2: #b0b0b0; /* Defining variables 定义变量 */
+}
+
+#fileUpload,#folderUpload{
+  display: none;
+}
+
+.upload-button {
+  width: 100px !important;
+  margin-right: 30px; 
+  cursor: pointer;
+  padding: 10px;
+  color: rgb(79, 83, 99);
+  font-weight: bold;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: .13rem .13rem .23rem var(--greyLight-2), -.13rem -.13rem .23rem var(--white);  
+}:root {
+  --greyLight-2: #c8d0e7; 
+  --white: #fff;     
+}
+
+.upload-button:hover,.upload-folder:hover{
+  color: rgb(255, 136, 0);
+}
+
+.upload-folder{
+  width: 170px !important;
+  margin-right: 30px; 
+  cursor: pointer;
+  padding: 11px;
+  color: rgb(79, 83, 99);
+  font-weight: bold;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: .13rem .13rem .23rem var(--greyLight-2), -.13rem -.13rem .23rem var(--white); 
+}
+
+
+/* Folder Information List  */
+.folder-list {
+  list-style: none; 
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.folder-item {
+  flex: 0 0 18%;
+  max-width: 20%;
+
+  text-align: center;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  box-sizing: border-box;
+}
+
+.folder-item a {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  padding-left: 15px;
+  height: 60px;
+  font-size: 17px;
+
+  box-shadow: .1rem .1rem .2rem var(--greyLight-2), -.1rem -.1rem .2rem var(--white) !important;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #000000;
+}
+
+.folder-item a:hover {
+  border-color: #071bf0;
+}
+
+
+/* List & Grid layout btn */ 
+.layout-btn {
+  width: 5em;
+  height: 2em;
+  border-radius: 30em;
+  font-size: 15px;
+  font-family: inherit;
+  border: none;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 3px 3px 6px #c5c5c5,
+              -3px -3px 6px #ffffff;
+ }
+ 
+ .layout-btn::before {
+  content: '';
+  width: 0;
+  height: 3em;
+  border-radius: 30em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: linear-gradient(to right, rgba(172, 178, 214, 0.5) 0%, rgba(150, 146, 195, 0.5) 100%);
+  transition: .5s ease;
+  display: block;
+ }
+ 
+ .layout-btn:hover::before {
+  width: 10em;
+ }
+  
+ 
+/* File Information List 文件信息列表 */
+.file-list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* File list header 文件列表头部 */
+.file-list-header {
+  display: flex;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.file-list-header div {
+  flex: 1;
+  text-align: center;
+  padding: 0 10px;
+}
+
+/* per column 每个列项 */
+.file-item {
+  cursor: pointer;
+  display: flex;
+  padding: 10px 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ddd;
+  background-color: #fff; 
+  border-radius: 5px;
+  box-shadow: inset .15rem .15rem .2rem var(--greyLight-2), inset -.15rem -.15rem .2rem #fff;
+}
+
+.file-item div {
+  flex: 1;
+  text-align: center; 
+  padding: 0 10px;
+}
+
+.file-item:hover{
+  background-color: #e4e4e4;
+}
+
+.file-item.selected {
+  background-color: #e3edfd;
+  border-radius: 8px;
+  box-shadow: 10px rgb(255, 255, 255);
+  z-index: 10000;
+}
+
+.file-item input[type="checkbox"] {
+    margin-left: 30px;
+  }
+  
+
+/* Fixed bottom rectangle style 固定底部长方形样式 */
+.footer-fixed-box {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  background-color: rgba(254, 254, 254, 0.85); 
+  padding: 9px;
+  border-top: 1px solid #ddd;
+  z-index: 9999999; 
+  display: flex; 
+}
+
+.footer-fixed-box .selected-files {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+  
+/* Bottom Button Function Style*/
+.btn1{
+  background-color: transparent;
+  border: 2px solid #4b5aff;
+  border-radius: 15px;
+  color: #4b5aff;
+  text-align: center;
+  width: 100px;
+  height: 40px;
+  margin-left: 90px;
+}
+
+.btn_rename{
+  background-color: transparent;
+  border: 2px solid #4b5aff;
+  border-radius: 15px;
+  color: #4b5aff;
+  text-align: center;
+  width: 100px;
+  height: 40px;
+  margin-left: 20px;
+}
+.btn1:hover,.btn_rename:hover {
+  background-color: #ebedff;
+}
+
+.btn_delete{
+  background-color: transparent;
+  border: 2px solid #ff5c5c;
+  border-radius: 15px;
+  color: #ff5c5c;
+  text-align: center;
+  width: 100px;
+  height: 40px;
+  margin-left: 20px;
+}
+
+.btn_delete:hover {
+  background-color: #fec8c8;
+}
+
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.85); /* 半透明黑色背景 */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+  
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99;
+}
+
+.modal-content {
+  max-width: 1000px;
+  justify-content: center;
+  align-items: center;
+}
+.file-content {
+  height: 500px;
+  width: 1800px;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Close button style */
+.close-btn {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.9); 
+  border-radius: 100px;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  top: -70px;
+  right: -180px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #c6c6c6;
+}
+.close-btn:hover{
+  background-color: rgba(240, 237, 237, 0.4); 
+}
+
+
+ /* rename */
+ .rename-modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); 
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+ }
+
+.rename-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  width: 400px;
+  height: 190px;
+}
+
+.r-input{
+  height: 40px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  outline: none; 
+}
+.r-input:focus {
+  border-color: rgb(73, 88, 253); 
+  box-shadow: 0 0 5px rgba(161, 172, 255, 0.5); 
+}
+
+.r-btn{
+  align-items: center;
+  background-color: #0b57d0;
+  border: 0;
+  border-radius: 100px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 12px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 20px;
+  max-width: 480px;
+  min-height: 35px;
+  min-width: 0px;
+  overflow: hidden;
+  padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  touch-action: manipulation;
+  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+}
+
+.r-btn:hover,
+.r-btn:focus { 
+  background-color: #3672d3;
+  color: #ffffff;
+}
+
+.r-btn:active {
+  background: #09223b;
+  color: rgb(255, 255, 255, .7);
+}
+
+.r-btn:disabled { 
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, .08);
+  color: rgba(0, 0, 0, .3);
+}
+
+
+/* Grid Layout */
+.grid-layout {
+  display: grid;
+  grid-template-columns: repeat(4, 2fr);
+  gap: 30px;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.grid-layout .file-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 40px;
+  border: 1px solid #ddd;
+}
+
+/* Image Thumbnail */
+.file-preview {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.file-thumbnail {
+  max-width: 100%;
+  max-height: 100%;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+/* Default File Icon */
+.file-icon {
+  font-size: 50px;
+  color: gray;
+}
+
+
+/* btn scrollToTop */
+.btn-to-top {
+  display: none; 
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  color: #4f4f4f;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0.2rem 0.2rem 0.4rem rgb(0 0 0 / 12%), -0.2rem -0.2rem 0.4rem rgb(255 255 255 / 70%);
+}
+
+.btn-to-top:hover {
+  color:  rgb(255, 136, 0);
+}
+
+
+
+

@@ -53,6 +53,8 @@ Before starting, make sure you have the following installed on your machine:
 
 4. **Update the MySQL config** in `server/app/config/db.config.js` with your database details.
 
+5. **Create MySQL Database and Tables** Before running the application, set up the MySQL database and tables. 
+
 ### Start the Project
 
 1. **Start the server**:
@@ -60,7 +62,10 @@ Before starting, make sure you have the following installed on your machine:
    npm start
    ```
 
-2. The client will run on `http://localhost:5173`, while the server will run on `http://localhost:8080` by default.
+2. **Starting the Backend Server**
+ ```bash
+   node server.js
+   ```
 
 ---
 
